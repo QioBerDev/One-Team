@@ -1,0 +1,30 @@
+# ===== 运行时日志（保留目录本身） =====
+/log/*
+!/log/.gitkeep
+
+# ===== 用户上传（保留目录与 .htaccess，忽略实际上传文件） =====
+/uploads/*
+!/uploads/.htaccess
+
+# ===== 安装锁（安装后自动生成，不应入库） =====
+install/install.lock
+install/install.lock.php
+
+# ===== 临时 / 日志类 =====
+*.log
+*.tmp
+*.cache
+*.bak
+*.old
+
+# ===== 系统 / 编辑器 =====
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# ===== 本地工具 / AI 助手残留 =====
+.workbuddy/
+.workbuddy-ai/
+.check/
