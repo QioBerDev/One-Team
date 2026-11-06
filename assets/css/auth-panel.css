@@ -1,0 +1,150 @@
+/* ==========================================================================
+   登录 / 注册 —— OneTool · Codebase 5.0 原版分栏补丁
+   --------------------------------------------------------------------------
+   首页只有一个水晶按钮 → /user/login.php，登录页内含注册视图（页内切换）。
+   表单控件全部由 Codebase / Bootstrap 原生类渲染（form-floating、
+   form-control、btn-alt-primary、link-fx、alert），本文件只做极薄布局补丁。
+
+   2026-11-06 f：
+   - 大图只铺左栏（.ot-auth-hero），不再铺整行被右侧白表单盖掉；
+     支持 cover / contain 与对齐位置，由后台「网站配置」控制。
+   - 右上角 X 改成醒目红色「关闭」按钮，普通用户一眼能认出。
+   ========================================================================== */
+
+.ot-auth-col { position: relative; }
+.ot-auth-col .content { width: 100%; }
+.ot-auth-brand { margin-bottom: 0; }
+.ot-auth-slogan { max-width: 560px; }
+.ot-auth-form { max-width: 420px; }
+
+/* ---------- 左侧大图：填充铺满 / 完整显示 ---------- */
+.ot-auth-row { min-height: 100vh; }
+.ot-auth-hero {
+    position: relative;
+    overflow: hidden;
+    /* contain 模式留白时的兜底底色，避免露出刺眼白块 */
+    background-color: #1b2434;
+}
+/* 覆盖色独立叠层：bg-black-50 / bg-earth-op / bg-gd-dusk 等 Codebase 类直接作用在这里 */
+.ot-auth-hero-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+.ot-auth-hero-copy {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+/* ---------- 右上角醒目关闭按钮 ---------- */
+.ot-auth-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 6;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #e8594f;
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(232, 89, 79, .35);
+    transition: background .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.ot-auth-close i { font-size: 1rem; }
+.ot-auth-close:hover {
+    background: #d43f35;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(232, 89, 79, .5);
+}
+.ot-auth-close:focus-visible { outline: 2px solid #e8594f; outline-offset: 3px; }
+
+/* ---------- 后台「网站配置」大图预览：完整显示原图，不裁窄带 ---------- */
+.ot-hero-preview-wrap {
+    width: 100%;
+    height: 220px;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 8px;
+    background: #f1f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.ot-hero-preview-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+/* ---------- 登录 / 注册按钮与账号密码框同宽 ---------- */
+.ap-btn { width: 100%; }
+.ap-btn:disabled { opacity: .6; cursor: wait; }
+.ap-error[hidden] { display: none; }
+.ap-error { font-size: .875rem; }
+#ap-captcha-img { display: block; background: #f8fafc; }
+
+/* 创建账户靠左 / 忘记密码靠右（ap_form_links 已用 justify-content-between） */
+.ap-links { gap: 12px; min-height: 20px; }
+.ap-links a { white-space: nowrap; }
+
+/* 登录页内的登录 / 注册视图切换 */
+.ap-view[hidden] { display: none !important; }
+
+/* 第三方登录（彩虹聚合登录）按钮组 */
+.ap-social { margin-top: 1.5rem; }
+.ap-social-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #6c757d;
+    font-size: .8rem;
+    margin-bottom: 12px;
+    white-space: nowrap;
+}
+.ap-social-title::before,
+.ap-social-title::after { content: ''; flex: 1; height: 1px; background: rgba(0, 0, 0, .1); }
+.ap-social-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
+    gap: 8px;
+}
+.ap-social-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 62px;
+    padding: 8px 4px;
+    border-radius: 10px;
+    background: var(--oa-color, #6c757d);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    transition: filter .15s ease, transform .15s ease;
+}
+.ap-social-btn:hover { color: #fff; filter: brightness(1.1); transform: translateY(-2px); }
+.ap-social-btn i { font-size: 1.15rem; line-height: 1; }
+.ap-social-txt { font-size: 1rem; font-weight: 700; line-height: 1.2; }
+.ap-social-name { font-size: .68rem; line-height: 1.1; white-space: nowrap; }
+
+@media (max-width: 767.98px) {
+    .ot-auth-col .content { padding-left: 1rem; padding-right: 1rem; }
+    .ot-auth-form { max-width: 100%; }
+    .ot-auth-close { top: 10px; right: 10px; padding: 7px 12px; font-size: .8125rem; }
+    .ot-auth-slogan { font-size: 1.1rem; }
+    .ap-social-list { grid-template-columns: repeat(auto-fit, minmax(68px, 1fr)); gap: 6px; }
+}

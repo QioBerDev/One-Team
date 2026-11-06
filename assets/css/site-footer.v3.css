@@ -1,0 +1,297 @@
+/*!
+ * 站点页脚样式（参考 YunYoo 四栏布局，适配 OneUI 5.6 / Bootstrap 5.3 变量）
+ * 明暗主题自动跟随 --bs-* 变量
+ */
+
+.site-footer {
+    padding: 2rem 0 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--bs-body-color, #334155);
+}
+
+.site-footer a {
+    color: var(--bs-body-color, #334155);
+    text-decoration: none;
+    transition: color 0.15s ease, transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+    color: var(--bs-primary, #4c78dd);
+}
+
+/* ---------- 品牌区 ---------- */
+.site-footer-brand .site-footer-logo {
+    display: inline-block;
+    margin-bottom: 0.85rem;
+    padding: 5px 9px;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    line-height: 0;
+}
+
+.site-footer-brand .site-footer-logo img {
+    height: 56px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.site-footer-company {
+    margin: 0 0 0.3rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.site-footer-address {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--bs-gray-600, #6c757d);
+}
+
+.site-footer-site {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.site-footer-site a {
+    color: var(--bs-primary, #4c78dd);
+}
+
+.site-footer-site i {
+    margin-right: 0.35rem;
+    font-size: 0.75rem;
+    opacity: 0.85;
+}
+
+/* ---------- 栏目标题 ---------- */
+.site-footer-heading {
+    margin: 0 0 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--bs-gray-600, #6c757d);
+}
+
+/* ---------- 链接列表 ---------- */
+.site-footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.site-footer-links > li {
+    margin-bottom: 0.4rem;
+}
+
+.site-footer-links > li:last-child {
+    margin-bottom: 0;
+}
+
+.site-footer-links a {
+    display: inline-block;
+    word-break: break-word;
+}
+
+.site-footer-links a:hover {
+    transform: translateX(2px);
+}
+
+.site-footer-label {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--bs-gray-600, #6c757d);
+}
+
+/* ---------- 社交图标（正方形，悬停展开名称） ---------- */
+.site-footer-social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.site-footer-social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    font-size: 0.8125rem;
+    line-height: 1;
+    border: 1px solid var(--bs-border-color, #dfe3ea);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width 0.28s ease, padding 0.28s ease, border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.site-footer-social-icon i {
+    flex: 0 0 auto;
+    font-size: 1.05rem;
+}
+
+.site-footer-social-icon .site-footer-social-label {
+    display: inline-block;
+    max-width: 0;
+    margin-left: 0;
+    opacity: 0;
+    overflow: hidden;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: max-width 0.28s ease, opacity 0.2s ease, margin-left 0.28s ease;
+}
+
+.site-footer-social-icon:hover,
+.site-footer-social-icon:focus {
+    width: auto;
+    padding: 0 0.8rem;
+    border-color: var(--bs-primary, #4c78dd);
+    color: var(--bs-primary, #4c78dd);
+    background-color: rgba(var(--bs-primary-rgb, 76, 120, 221), 0.08);
+    transform: none;
+}
+
+.site-footer-social-icon:hover .site-footer-social-label,
+.site-footer-social-icon:focus .site-footer-social-label {
+    max-width: 240px;
+    margin-left: 0.45rem;
+    opacity: 1;
+}
+
+/* ---------- 底部版权（居中） ---------- */
+.site-footer-bottom {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--bs-border-color, #dfe3ea);
+    font-size: 0.8125rem;
+    text-align: center;
+}
+
+.site-footer-bottom-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.6rem;
+}
+
+.site-footer-copyright {
+    color: var(--bs-gray-600, #6c757d);
+}
+
+.site-footer-divider {
+    color: var(--bs-gray-400, #ced4da);
+}
+
+.site-footer-icp {
+    color: var(--bs-gray-600, #6c757d);
+}
+
+.site-footer-icp i {
+    margin-right: 0.25rem;
+    font-size: 0.75rem;
+    opacity: 0.85;
+}
+
+.site-footer-icp:hover {
+    color: var(--bs-primary, #4c78dd);
+}
+
+/* ---------- 统计挂载点 ---------- */
+.site-footer-statistics {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.site-footer-statistics:empty {
+    margin-bottom: 0;
+}
+
+/* ---------- 暗色模式（OneUI 的 --bs-* 变量不随主题切换，需显式覆盖） ---------- */
+.dark-mode .site-footer {
+    color: #dde2e9;
+}
+
+.dark-mode .site-footer .site-footer-company {
+    color: #eef2f7;
+}
+
+.dark-mode .site-footer a {
+    color: #dde2e9;
+}
+
+.dark-mode .site-footer a:hover,
+.dark-mode .site-footer a:focus {
+    color: var(--bs-primary, #4c78dd);
+}
+
+.dark-mode .site-footer-address,
+.dark-mode .site-footer-heading,
+.dark-mode .site-footer-copyright,
+.dark-mode .site-footer-icp {
+    color: #bec8d5;
+}
+
+.dark-mode .site-footer-divider {
+    color: #5b6b80;
+}
+
+.dark-mode .site-footer-icp:hover {
+    color: #7fa0f0;
+}
+
+.dark-mode .site-footer-site a {
+    color: #7fa0f0;
+}
+
+.dark-mode .site-footer-social-icon {
+    border-color: #3a4759;
+}
+
+.dark-mode .site-footer-social-icon:hover,
+.dark-mode .site-footer-social-icon:focus {
+    border-color: var(--bs-primary, #4c78dd);
+    color: #9db6f5;
+    background-color: rgba(76, 120, 221, 0.16);
+}
+
+.dark-mode .site-footer-bottom {
+    border-top-color: #3a4759;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 767.98px) {
+    .site-footer {
+        padding: 1.5rem 0 0.25rem;
+    }
+
+    .site-footer-brand .site-footer-logo img {
+        height: 40px;
+    }
+
+    .site-footer-heading {
+        margin-bottom: 0.6rem;
+    }
+
+    .site-footer-bottom {
+        margin-top: 1.25rem;
+    }
+
+    .site-footer-bottom-inner {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .site-footer-divider {
+        display: none;
+    }
+}

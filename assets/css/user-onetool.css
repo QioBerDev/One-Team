@@ -1,0 +1,237 @@
+/* ==========================================================================
+   OneTool 控制台微调（Codebase 5.0 之上的极薄补丁）
+   --------------------------------------------------------------------------
+   页面结构、卡片、表格、按钮、主题、图标全部用 Codebase 5.0 原生类，
+   这里只补 Codebase 本身没有的几处细节，别再往里堆自定义皮肤。
+   ========================================================================== */
+
+/* 字母头像：没有 QQ 头像时用首字母，居中显示 */
+.img-avatar.bg-primary,
+.img-avatar.bg-white-25 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+}
+
+/* 交付内容长串不撑破卡片 */
+.block-content pre {
+    font-size: 13px;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+/* 六宫格在小屏别让图标太大 */
+@media (max-width: 575.98px) {
+    .row.g-sm .block-content p.my-3 i.fa-2x { font-size: 1.5em; }
+    .row.g-sm .fw-semibold.fs-sm { font-size: 12px; }
+}
+
+/* 暗色模式下渐变横幅文字保持可读 */
+.dark-mode .bg-gd-dusk,
+.dark-mode .bg-gd-sea { color: #fff; }
+
+/* ---------- 进入管理员操作台（仅管理员账号可见） ---------- */
+.ot-admin-switch {
+    background: linear-gradient(120deg, rgba(59,130,246,.14), rgba(139,92,246,.14));
+    border-left: 3px solid #5b8def;
+    border-radius: 6px;
+}
+.ot-admin-switch .nav-main-link-icon,
+.ot-admin-switch .nav-main-link-name { color: #2f6bff; font-weight: 600; }
+.ot-admin-switch:hover { background: linear-gradient(120deg, rgba(59,130,246,.26), rgba(139,92,246,.26)); }
+
+.ot-admin-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #5b8def;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(91,141,239,.3);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.ot-admin-switch-btn:hover { color: #fff; background: #4a7de0; transform: translateY(-1px); box-shadow: 0 5px 16px rgba(91,141,239,.45); }
+
+/* ==========================================================================
+   控制台统一呼吸间距（对齐 OneTool 原版留白）
+   account_head() 输出的容器带 ot-console，所有 /user/ 页面共享这套间距，
+   不再靠每个页面手写 mb-1 / mb-2 把卡片挤成一团。
+   ========================================================================== */
+.ot-console > .block,
+.ot-console > .row { margin-bottom: 1.5rem; }
+.ot-console > .row:last-child,
+.ot-console > .block:last-child { margin-bottom: 0; }
+.ot-console > h2.content-heading { margin-bottom: 1.25rem; }
+
+/* 快捷入口：卡片内部留白 + 轻动效 */
+.ot-quick .block-content { transition: transform .15s ease, box-shadow .15s ease; }
+.ot-quick a.block:hover .block-content { transform: translateY(-2px); }
+.ot-quick a.block:hover i.fa-2x { opacity: 1 !important; }
+
+/* 会员定价卡：按 OneTool shop/vip.html 放大标题 / 价格 / 按钮区 */
+.ot-plan-card .block-header { padding: 1rem 1.25rem; }
+.ot-plan-card .block-content { padding: 1.25rem; }
+.ot-plan-card:hover { border-color: rgba(91,141,239,.5); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+.ot-plan-card .block-content.bg-body-light { padding-top: 1.75rem; padding-bottom: 1.75rem; }
+
+/* 站点统计卡 */
+.ot-stat .block-content { padding: 1.25rem 1.5rem; }
+
+/* FAQ 折叠项：标题与答案都拉开行距 */
+#ot-faq .block-header { padding: .9rem 1.25rem; }
+#ot-faq .block-content { padding: 1rem 1.25rem; line-height: 1.75; }
+
+/* 表格行距，避免订单 / 返佣明细挤在一起 */
+.ot-console .table > :not(caption) > * > * { padding-top: .75rem; padding-bottom: .75rem; }
+
+@media (max-width: 575.98px) {
+    .ot-console > .block,
+    .ot-console > .row { margin-bottom: 1rem; }
+    .ot-plan-card .block-content { padding: 1rem; }
+    .ot-stat .block-content { padding: 1rem; }
+}
+
+/* ==========================================================================
+   头像挂件 + 头像装扮（2026-11-06）
+   --------------------------------------------------------------------------
+   关键：包层只负责定位，绝不给头像或包层加 border-radius / overflow:hidden，
+   否则会像上一版那样把 Codebase 原生 .img-avatar 的 50% 圆角压成方形。
+   挂件本身是 300x300 透明镂空动图，镂空内径约占 70%，所以放大到 150%
+   才能让装饰环正好围住头像、而不是被头像盖住内圈。
+   pointer-events:none 保证不挡住头像链接点击。
+   ========================================================================== */
+.ot-avatar-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: 0;
+    isolation: isolate;
+}
+.ot-avatar-wrap > .img-avatar,
+.ot-avatar-wrap > img.img-avatar { position: relative; z-index: 1; }
+.ot-avatar-frame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    height: 150%;
+    max-width: none;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+}
+/* 侧栏 32px 小头像：挂件稍微收一点，避免挤到相邻文字 */
+.smini-visible-block .ot-avatar-frame,
+.ot-avatar-wrap:has(.img-avatar32) .ot-avatar-frame { width: 142%; height: 142%; }
+
+/* 基本资料卡左侧信息栏：整列居中，不再左对齐 */
+.ot-profile-meta { margin-bottom: 0; text-align: center; }
+.ot-profile-meta dt { font-size: .78rem; line-height: 1.4; margin-top: .85rem; }
+.ot-profile-meta dd { margin: .15rem 0 0; line-height: 1.5; word-break: break-all; }
+.ot-profile-meta dt:first-child { margin-top: 0; }
+
+/* 装扮预览台 */
+.ot-avatar-stage {
+    padding: 2.75rem 1.75rem 1.5rem;
+    border: 1px dashed rgba(0, 0, 0, .12);
+    border-radius: .5rem;
+    background: rgba(0, 0, 0, .02);
+}
+.dark-mode .ot-avatar-stage { border-color: rgba(255, 255, 255, .16); background: rgba(255, 255, 255, .03); }
+.ot-avatar-stage .ot-avatar-wrap { margin: 1.5rem 0 1rem; }
+.ot-avatar-stage .img-avatar-thumb { width: 96px; height: 96px; font-size: 2rem; }
+.ot-avatar-stage .ot-avatar-frame { width: 150%; height: 150%; }
+
+/* 挂件选择网格 */
+.ot-frame-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: .75rem;
+}
+.ot-frame-item {
+    position: relative;
+    display: block;
+    padding: .5rem .35rem .6rem;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: .5rem;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.dark-mode .ot-frame-item { border-color: rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .04); }
+.ot-frame-item:hover { transform: translateY(-2px); border-color: rgba(91, 141, 239, .65); }
+.ot-frame-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+}
+.ot-frame-thumb {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto .4rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+/* 中间放一颗示例头像，浅色环形装饰才有对比、也能一眼看出佩戴效果 */
+.ot-frame-thumb::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 56%;
+    height: 56%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7ab4f8 0%, #3b6fd4 100%);
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .35);
+    z-index: 0;
+}
+.ot-frame-thumb img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; }
+.ot-frame-none { background: rgba(0, 0, 0, .05); color: #9aa3af; font-size: 1.35rem; }
+.ot-frame-none::before { display: none; }
+.dark-mode .ot-frame-none { background: rgba(255, 255, 255, .08); }
+.ot-frame-name {
+    display: block;
+    font-size: .75rem;
+    line-height: 1.35;
+    color: #5b6572;
+    word-break: break-all;
+}
+.dark-mode .ot-frame-name { color: #aeb7c2; }
+.ot-frame-check {
+    position: absolute;
+    right: .35rem;
+    top: .35rem;
+    display: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    line-height: 1.15rem;
+    border-radius: 50%;
+    background: #4a7de0;
+    color: #fff;
+    font-size: .65rem;
+}
+.ot-frame-item input:checked ~ .ot-frame-thumb { box-shadow: 0 0 0 2px #4a7de0; }
+.ot-frame-item input:checked ~ .ot-frame-name { color: #3b6fd4; font-weight: 600; }
+.ot-frame-item input:checked ~ .ot-frame-check { display: block; }
+.ot-frame-item:has(input:checked) { border-color: #4a7de0; box-shadow: 0 0 0 1px rgba(74, 125, 224, .35); }
+.ot-frame-item:focus-within { outline: 2px solid rgba(74, 125, 224, .5); outline-offset: 2px; }

@@ -1,0 +1,3 @@
+# 放置微信赞赏码：将图片命名为 wechat-reward.png 放到本目录（assets/donate/）。
+# donate.php 会自动读取并显示；缺图时页面会提示「待上传」。
+# 支持 PNG / JPG / WEBP，建议正方形、边长 480~800px。

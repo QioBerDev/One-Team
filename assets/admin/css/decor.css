@@ -1,0 +1,26 @@
+/* 后台卡片角花装饰（水晶星） */
+.block.block-rounded {
+    position: relative;
+    overflow: hidden;
+}
+.block.block-rounded::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        url("../../img/decor/category-tl.webp"),
+        url("../../img/decor/category-br.webp");
+    background-size: min(26%, 92px) auto, min(24%, 88px) auto;
+    background-position: 0% 0%, 100% 100%;
+    background-repeat: no-repeat, no-repeat;
+    opacity: .16;
+    z-index: 0;
+    pointer-events: none;
+}
+.block.block-rounded > * {
+    position: relative;
+    z-index: 1;
+}
+.dark-mode .block.block-rounded::before {
+    opacity: .10;
+}
